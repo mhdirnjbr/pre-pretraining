@@ -58,7 +58,7 @@ def generate_dyck(num_symbols, min_depth=1, max_depth=4, max_length=510, offset=
 
 
 def generate_dyck_txt_file(
-    file_dir, num_symbols=30, n=100000, target_length=2048, min_depth=1, max_depth=16
+    file_dir, num_symbols=30, n=100000, target_length=2048, min_depth=1, max_depth=16, split=None
 ):
     """Generates a text file containing Dyck sequences.
 
@@ -74,7 +74,7 @@ def generate_dyck_txt_file(
 
     os.makedirs(file_dir, exist_ok=True)
     with open(
-        f"{file_dir}/dyck_sequences_{num_symbols}_{min_depth}_{max_depth}.txt", "w"
+        f"{file_dir}/dyck_sequences_{num_symbols}_{min_depth}_{max_depth}_{split}.txt", "w"
     ) as f:
         for i in trange(n):
             result = []
