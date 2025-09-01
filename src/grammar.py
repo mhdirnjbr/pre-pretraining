@@ -209,7 +209,7 @@ def generate_shuff_dyck(k, max_length=2048, p_open=0.5, max_depth=16):
 
 
 def generate_shuff_dyck_txt_file(
-    file_dir, num_symbols=64, n=100000, target_length=2048, p=0.5
+    file_dir, num_symbols=64, n=100000, target_length=2048, p=0.5, split=None
 ):
     """Generates a text file containing Dyck sequences with cross-serial dependencies.
 
@@ -221,7 +221,7 @@ def generate_shuff_dyck_txt_file(
     """
     os.makedirs(file_dir, exist_ok=True)
     with open(
-        f"{file_dir}/dyck_sequences_cross_serial_{num_symbols}_{p}.txt", "w"
+        f"{file_dir}/dyck_sequences_cross_serial_{num_symbols}_{p}_{split}.txt", "w"
     ) as f:
         for i in range(n):
             result = generate_shuff_dyck(num_symbols, target_length, p)
