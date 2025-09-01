@@ -127,6 +127,7 @@ def make_copy_str_file(
     n: int = 100000,
     seq_length: int = 2048,
     min_w_length: int = 10,
+    split: str = None
 ):
     """Generates a text file containing strings of repeated random integers, padded to a minimum length.
 
@@ -143,7 +144,7 @@ def make_copy_str_file(
         min_w_length: The minimum length of each initial random string.
     """
     os.makedirs(file_dir, exist_ok=True)
-    with open(f"{file_dir}/ww_sequences_{num_symbols}_{min_w_length}.txt", "w") as f:
+    with open(f"{file_dir}/ww_sequences_{num_symbols}_{min_w_length}_{split}.txt", "w") as f:
         for _ in trange(n):
             sequence = make_copy_tokens(num_symbols, min_w_length=min_w_length)
             while len(sequence) < seq_length:
