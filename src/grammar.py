@@ -113,7 +113,24 @@ def make_rep_str_file(
                 )
             repeated_str = " ".join(map(str, sequence[:seq_length]))
             f.write(f"{repeated_str}\n")
+            
+            
+def make_rand_tokens(num_symbols, seq_length=2048):
+    return np.random.randint(0, num_symbols, size=seq_length).tolist()
 
+def make_rand_str_file(
+    file_dir,
+    num_symbols: int = 256,
+    n: int = 15000,
+    seq_length: int = 2048,
+    split: str = None
+):
+    os.makedirs(file_dir, exist_ok=True)
+    with open(f"{file_dir}/rand_sequences_{num_symbols}_{split}.txt", "w") as f:
+        for _ in trange(n):
+            sequence = make_rand_tokens(num_symbols, seq_length)
+            rand_str = " ".join(map(str, sequence))
+            f.write(f"{rand_str}\n")
 
 def make_copy_tokens(
     num_symbols: int = 64, min_w_length: int = 10, max_w_length: int = 510
@@ -260,5 +277,6 @@ if __name__ == "__main__":
             "generate_shuff_dyck": generate_shuff_dyck_txt_file,
             "generate_ww": make_copy_str_file,
             "generate_rep": make_rep_str_file,
+            "generate_rand": make_rand_str_file,
         }
     )
