@@ -91,6 +91,29 @@ def generate_dyck_txt_file(
             )  # truncate to target length
             f.write(f"{dyck_str}\n")
 
+def make_rep_tokens(num_symbols, repetition_length=10):
+    original_token_seq = np.random.randint(0, num_symbols, size=repetition_length).tolist()
+    return original_token_seq + original_token_seq
+
+def make_rep_str_file(
+    file_dir,
+    num_symbols: int = 256,
+    n: int = 15000,
+    seq_length: int = 2048,
+    repetition_length: int = 10,
+    split: str = None
+):
+    os.makedirs(file_dir, exist_ok=True)
+    with open(f"{file_dir}/rep_sequences_{num_symbols}_{repetition_length}_{split}.txt", "w") as f:
+        for _ in trange(n):
+            sequence = make_rep_tokens(num_symbols, repetition_length)
+            while len(sequence) < seq_length:
+                sequence.extend(
+                    make_rep_tokens(num_symbols, repetition_length)
+                )
+            repeated_str = " ".join(map(str, sequence[:seq_length]))
+            f.write(f"{repeated_str}\n")
+
 
 def make_copy_tokens(
     num_symbols: int = 64, min_w_length: int = 10, max_w_length: int = 510
@@ -236,5 +259,6 @@ if __name__ == "__main__":
             "generate_dyck": generate_dyck_txt_file,
             "generate_shuff_dyck": generate_shuff_dyck_txt_file,
             "generate_ww": make_copy_str_file,
+            "generate_rep": make_rep_str_file,
         }
     )
